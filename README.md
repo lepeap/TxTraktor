@@ -1,2 +1,2 @@
 # TxTraktor
-Information extraction library c# .net
+Information extraction library C# .NET
