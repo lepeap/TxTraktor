@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F9BB9405-BCBF-4DB4-9D7D-3E1D96E91DDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TxTraktor", "TxTraktor\TxTraktor.csproj", "{1E7902C2-92FF-4BF0-91E4-EC93BAEC217B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Source", "Test.Source\Test.Source.csproj", "{786E6B1B-8CFC-46C7-BFBB-E052C8AEB884}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Parser", "Test.Parser\Test.Parser.csproj", "{7116F299-00A8-4E18-8321-E2CE4FA92FE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Compiler", "Test.Compiler\Test.Compiler.csproj", "{A38EC496-6B64-4DC1-9AF7-2C8C09BE1348}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Extract", "Test.Extract\Test.Extract.csproj", "{04D6CA0C-C255-4088-A202-1FE0EB7039AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TxTraktor.Sparql", "TxTraktor.Sparql\TxTraktor.Sparql.csproj", "{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E7902C2-92FF-4BF0-91E4-EC93BAEC217B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E7902C2-92FF-4BF0-91E4-EC93BAEC217B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E7902C2-92FF-4BF0-91E4-EC93BAEC217B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E7902C2-92FF-4BF0-91E4-EC93BAEC217B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786E6B1B-8CFC-46C7-BFBB-E052C8AEB884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786E6B1B-8CFC-46C7-BFBB-E052C8AEB884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786E6B1B-8CFC-46C7-BFBB-E052C8AEB884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786E6B1B-8CFC-46C7-BFBB-E052C8AEB884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7116F299-00A8-4E18-8321-E2CE4FA92FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7116F299-00A8-4E18-8321-E2CE4FA92FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7116F299-00A8-4E18-8321-E2CE4FA92FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7116F299-00A8-4E18-8321-E2CE4FA92FE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38EC496-6B64-4DC1-9AF7-2C8C09BE1348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38EC496-6B64-4DC1-9AF7-2C8C09BE1348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38EC496-6B64-4DC1-9AF7-2C8C09BE1348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38EC496-6B64-4DC1-9AF7-2C8C09BE1348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D6CA0C-C255-4088-A202-1FE0EB7039AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D6CA0C-C255-4088-A202-1FE0EB7039AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D6CA0C-C255-4088-A202-1FE0EB7039AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D6CA0C-C255-4088-A202-1FE0EB7039AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{786E6B1B-8CFC-46C7-BFBB-E052C8AEB884} = {F9BB9405-BCBF-4DB4-9D7D-3E1D96E91DDB}
+		{7116F299-00A8-4E18-8321-E2CE4FA92FE4} = {F9BB9405-BCBF-4DB4-9D7D-3E1D96E91DDB}
+		{A38EC496-6B64-4DC1-9AF7-2C8C09BE1348} = {F9BB9405-BCBF-4DB4-9D7D-3E1D96E91DDB}
+		{04D6CA0C-C255-4088-A202-1FE0EB7039AC} = {F9BB9405-BCBF-4DB4-9D7D-3E1D96E91DDB}
+	EndGlobalSection
+EndGlobal

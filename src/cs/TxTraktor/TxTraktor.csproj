@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Version>0.0.1</Version>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Authors>Alexander Lepe</Authors>
+        <AssemblyName>TxTraktor</AssemblyName>
+        <RootNamespace>TxTraktor</RootNamespace>
+        <Authors>Alexander Lepe</Authors>
+        <Description>Information extraction library</Description>
+        <Copyright>Copyright © Alexander Lepe</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>nlp,information extraction</PackageTags>
+        <RepositoryUrl>https://github.com/lepeap/TxTraktor</RepositoryUrl>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Test.Source</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Test.Parser</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Test.Extract</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Test.Compiler</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.2" />
+      <PackageReference Include="DeepMorphy" Version="1.2.5" />
+      <PackageReference Include="Serilog" Version="2.9.0-dev-01116" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="3.1.2-dev-00802" />
+      <PackageReference Include="Serilog.Sinks.File" Version="4.1.0-dev-00847" />
+    </ItemGroup>
+
+</Project>
