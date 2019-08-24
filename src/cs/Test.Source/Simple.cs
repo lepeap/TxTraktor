@@ -302,6 +302,23 @@ namespace TxtTractor.Test.Source
                 }
             );
         }
+        
+                
+        [Test]
+        public void Quote()
+        {
+            Checker.CheckRule(
+                "S -> &q",
+                new[]
+                {
+                    new Rule("S", 
+                        new[]
+                        {
+                            new RuleItem(RuleItemType.Terminal, "\"")
+                        })
+                }
+            );
+        }
 
     }
 }

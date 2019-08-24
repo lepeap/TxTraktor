@@ -88,7 +88,8 @@ rule_item_static_main_key:
         rule_item_static_main_key_string |
         rule_item_static_main_key_short_nonterm |
         rule_item_static_main_key_full_nonterm |
-        rule_item_variable_name;
+        rule_item_variable_name |
+        rule_item_quote;
 rule_item_static_main_key_lemma: LEMMA_STRING_VALUE;
 rule_item_static_main_key_reg: REG_STRING_VALUE;
 rule_item_static_main_key_morph: MORPH_STRING_VALUE;
@@ -96,6 +97,7 @@ rule_item_static_main_key_string: STRING_VALUE;
 rule_item_static_main_key_short_nonterm: STARTS_BIG;
 rule_item_static_main_key_full_nonterm: STARTS_BIG '.' STARTS_BIG;
 rule_item_variable_name: '$' ALL_SMALL;
+rule_item_quote: '&q';
 
 
 
@@ -165,20 +167,6 @@ rule_template_value_string: string_type_value;
 rule_template_value_integer: integer_type_value;
 rule_template_value_float: float_type_value;
 rule_template_value_bool: bool_type_value;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

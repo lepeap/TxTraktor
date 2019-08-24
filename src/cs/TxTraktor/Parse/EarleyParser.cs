@@ -136,7 +136,7 @@ namespace TxTraktor.Parse
                     var newState = new State(
                         parent.Rule,
                         parent.DotIndex + 1,
-                        startColumnIndex: parent.StartColumnIndex,
+                        parent.StartColumnIndex,
                         parent.Node.Attache(node),
                         createOpType: "COMPLETE",
                         parents: parent.Parents,

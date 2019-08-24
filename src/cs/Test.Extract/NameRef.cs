@@ -129,7 +129,6 @@ namespace Test.Extract
             );
         }
         
-        
         [Test]
         public void RefToTerminalWrongIndex()
         {
@@ -140,6 +139,25 @@ namespace Test.Extract
                     new ExtractionDic("Test.S", "тест", 0)
                     {
                         
+                    }
+                }
+            );
+        }
+               
+        [Test]
+        public void RefToNonTerminalDefaultValue()
+        {
+            Checker.Check(
+                "тест 1234.",
+                        "S1 -> \"тест\" as value;"+
+                              "S[Test=$name] -> S1 as name;",
+                new []{
+                    new ExtractionDic("Test.S1", "тест", 0){
+                        {"Value", new ExtractionValue("тест", ValueType.String)}
+                    },
+                    new ExtractionDic("Test.S", "тест", 0)
+                    {
+                        {"Test", new ExtractionValue("тест", ValueType.String)}
                     }
                 }
             );

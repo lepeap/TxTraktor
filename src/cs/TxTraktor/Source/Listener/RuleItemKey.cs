@@ -55,6 +55,12 @@ namespace TxTraktor.Source.Listener
             RuleItem.Type = RuleItemType.VariableName;
         }
 
+        public override void EnterRule_item_quote(CfgGramParser.Rule_item_quoteContext context)
+        {
+            RuleItem.Key = "\"";
+            RuleItem.Type = RuleItemType.Terminal;
+        }
+
         public override void EnterRule_inline_expression(CfgGramParser.Rule_inline_expressionContext context)
         {
             IsInline = true;
