@@ -57,6 +57,7 @@ namespace TxTraktor.Parse
         public bool HasTemplate => Rule.HasTemplate;
 
         public bool IsValid => Node.IsValid;
+        public bool IsSystemIntermediate => Rule.IsSystemIntermediate;
 
         public TermBase CurrentTerm => Rule[DotIndex];
         

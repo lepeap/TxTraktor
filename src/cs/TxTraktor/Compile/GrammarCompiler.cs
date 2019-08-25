@@ -116,7 +116,8 @@ namespace TxTraktor.Compile
                     template: srl.Template, 
                     staticVars: srl.StaticVars.ToArray(),
                     isPossibleList: srl.IsPossibleList,
-                    validator: validator
+                    validator: validator,
+                    isSystemIntermediate: srl.IsSystemIntermediate
                 );
                 list.Add(rule);
                 

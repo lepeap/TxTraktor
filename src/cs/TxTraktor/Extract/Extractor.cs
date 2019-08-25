@@ -53,6 +53,7 @@ namespace TxTraktor.Extract
         private IEnumerable<State> _selectStates(IEnumerable<State> states)
         {
             states = states.Where(x =>  x.IsValid &&
+                                        !x.IsSystemIntermediate &&
                                         x.HasTemplate &&
                                        (_settings.RulesToExtract == null ||
                                         _settings.RulesToExtract.Contains(x.Rule.Name)));
@@ -271,6 +272,13 @@ namespace TxTraktor.Extract
             if (subNode.Rule.HasTemplate)
             {
                 var dic = _extract(subNode, sourceText);
+                
+                // Если есть в словаре есть только одно значение и оно с ключем Value, то возвращаем его
+                if (dic.Count == 1 && dic.ContainsKey("Value"))
+                {
+                    return dic["Value"];
+                }
+                
                 return new ExtractionValue(dic, ValueType.Dictionary, nodeBase.SemanticId);
             }
             

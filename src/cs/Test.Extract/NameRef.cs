@@ -162,5 +162,44 @@ namespace Test.Extract
                 }
             );
         }
+        
+        [Test]
+        public void RefToNonTerminalDefaultValueNullable()
+        {
+            Checker.Check(
+                "тест № 1234.",
+                "S1 -> \"№\"? \"1234\" as value;"+
+                "S[Test=$name] -> S1 as name;",
+                new []{
+                    new ExtractionDic("Test.S1", "№ 1234", 5){
+                        {"Value", new ExtractionValue("1234", ValueType.String)}
+                    },
+                    new ExtractionDic("Test.S", "№ 1234", 5)
+                    {
+                        {"Test", new ExtractionValue("1234", ValueType.String)}
+                    }
+                }
+            );
+        }
+        
+        
+        [Test]
+        public void RefToNonTerminalDefaultValueNullableTwoLevel()
+        {
+            Checker.Check(
+                "тест № 1234.",
+                "S1 -> \"№\"? \"1234\" as value;"+
+                "S[Test=$name] -> S1? as name \".\";",
+                new []{
+                    new ExtractionDic("Test.S1", "№ 1234", 5){
+                        {"Value", new ExtractionValue("1234", ValueType.String)}
+                    },
+                    new ExtractionDic("Test.S", "№ 1234.", 5)
+                    {
+                        {"Test", new ExtractionValue("1234", ValueType.String)}
+                    }
+                }
+            );
+        }
     }
 }

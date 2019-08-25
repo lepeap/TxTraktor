@@ -16,7 +16,8 @@ namespace TxTraktor.Compile.Model
                     Template template = null,
                     TemplateItemBase[] staticVars= null,
                     bool isPossibleList = false,
-                    IValidator validator = null)
+                    IValidator validator = null,
+                    bool isSystemIntermediate = false)
         {
             _terms = terms.ToArray();
             _template = template;
@@ -25,10 +26,12 @@ namespace TxTraktor.Compile.Model
             StaticVars = staticVars;
             IsPossibleList = isPossibleList;
             Validator = validator;
+            IsSystemIntermediate = isSystemIntermediate;
         }
         public string Name { get; }
         public bool IsStart { get; }
         public bool IsPossibleList { get; }
+        public bool IsSystemIntermediate { get; }
         public TemplateItemBase[] StaticVars { get; }
         public IValidator Validator { get; }
         public IEnumerable<TermBase> Terms => _terms;

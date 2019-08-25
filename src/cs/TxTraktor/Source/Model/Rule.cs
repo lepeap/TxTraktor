@@ -20,7 +20,8 @@ namespace TxTraktor.Source.Model
             IEnumerable<TemplateItemBase> staticVars = null,
             bool isPossibleList = false,
             string extensionType = null,
-            string extensionQuery = null
+            string extensionQuery = null,
+            bool isSystemIntermediate = false
             )
         {
             _items = items.ToList();
@@ -32,6 +33,7 @@ namespace TxTraktor.Source.Model
             IsPossibleList = isPossibleList;
             ExtensionType = extensionType;
             ExtensionQuery = extensionQuery;
+            IsSystemIntermediate = isSystemIntermediate;
         }
         public string Name { get; set; }
         public IEnumerable<RuleItem> Items => _items;
@@ -40,6 +42,7 @@ namespace TxTraktor.Source.Model
         public bool WasInline { get; set; }
         public string ExtensionType { get; set; }
         public string ExtensionQuery { get; set; }
+        public bool IsSystemIntermediate { get; set; }
         public IEnumerable<TemplateItemBase> StaticVars => _staticVars;
         public bool HasStaticVars => StaticVars != null && StaticVars.Any();
         public bool HasTemplate => Template != null;

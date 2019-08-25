@@ -67,6 +67,10 @@ namespace TxtTractor.Test.Compiler
                                 rzRule.HasValidator,
                                 "Wrong validator");
                 
+                Assert.AreEqual(etRule.IsSystemIntermediate,
+                    rzRule.IsSystemIntermediate,
+                    "Wrong system intermediate flag");
+                
                 if (etRule.HasValidator)
                     Assert.AreEqual(etRule.Validator.ToString(),
                                     rzRule.Validator.ToString(),

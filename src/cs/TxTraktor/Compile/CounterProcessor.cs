@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TxTraktor.Source.Model;
+using TxTraktor.Source.Model.Extraction;
 
 namespace TxTraktor.Compile
 {
@@ -91,7 +92,15 @@ namespace TxTraktor.Compile
                 {
                     resultRules = new[]
                     {
-                        new Rule(key, new[]{item}),
+                        new Rule(key, 
+                            new[]{item}, 
+                            // Прокидываем шаблон исходного правила
+                            template: new Template(new[]
+                            {
+                                new TemplateItem<(int, string)>("Value", (0, null), TemplateValueType.NumberRef)
+                            }),
+                            isSystemIntermediate: true
+                            ),
                         new Rule(key, new RuleItem[]{}), 
                     };
                     break;
