@@ -31,5 +31,26 @@ namespace TxtTractor.Test.Compiler.Conditions
             };
             Checker.CheckCondition<LemmaCondition>(new []{"тест"}, token, false);
         }
+        
+        [Test]
+        public void TestWithCapitLetters()
+        {
+            var token = new Token("Тест");
+            token.Morphs = new[]
+            {
+                new MorphInfo("тест", new ReadOnlyDictionary<string, string>(new Dictionary<string, string>())), 
+            };
+            Checker.CheckCondition<LemmaCondition>(new []{"тест"}, token, true);
+        }
+        
+        [Test]
+        public void TestWithCapitLetters1()
+        {
+            var token = new Token("Тест");
+            token.Morphs = new MorphInfo[0];
+            Checker.CheckCondition<LemmaCondition>(new []{"тест"}, token, true);
+        }
+
+        
     }
 }

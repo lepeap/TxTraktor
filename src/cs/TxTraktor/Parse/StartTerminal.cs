@@ -18,7 +18,7 @@ namespace TxTraktor.Parse
 
         public bool Check(Token t)
         {
-            return Terminal.IsValid(t);
+            return Terminal.CheckConditions(t);
         }
 
         public static IEnumerable<StartTerminal> Create(IEnumerable<Rule> rules)

@@ -11,7 +11,7 @@ namespace TxTraktor.Compile.Condition
         {
             Lemma = lemma;
         }
-        public string Lemma { get; set; }
+        public string Lemma { get; private set; }
 
         public override void  Init(string[] args)
         {

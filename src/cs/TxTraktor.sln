@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Extract", "Test.Extrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TxTraktor.Sparql", "TxTraktor.Sparql\TxTraktor.Sparql.csproj", "{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{35D6BAD4-5160-423F-953D-1CBE7DEE5A6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E254AB9-6865-4AB3-B9BD-FB8B002922FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D6BAD4-5160-423F-953D-1CBE7DEE5A6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D6BAD4-5160-423F-953D-1CBE7DEE5A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D6BAD4-5160-423F-953D-1CBE7DEE5A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D6BAD4-5160-423F-953D-1CBE7DEE5A6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{786E6B1B-8CFC-46C7-BFBB-E052C8AEB884} = {F9BB9405-BCBF-4DB4-9D7D-3E1D96E91DDB}

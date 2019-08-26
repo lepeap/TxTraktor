@@ -69,7 +69,7 @@ namespace TxTraktor.Compile.Model
         public bool HasLocalName => !string.IsNullOrEmpty(LocalName);
         
         public bool HasCondition => Condition!=null;
-        public bool IsValid(Token token)
+        public bool CheckConditions(Token token)
         {
             if (Condition == null) return true;
 

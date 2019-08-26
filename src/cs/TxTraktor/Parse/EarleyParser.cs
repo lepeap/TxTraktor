@@ -15,7 +15,6 @@ namespace TxTraktor.Parse
             _logger = logger;
         }
         
-        
         public Chart Parse(IEnumerable<Token> tokens)
         {
             var chart = new Chart(tokens);
@@ -28,15 +27,16 @@ namespace TxTraktor.Parse
             {
                 
                 var col = chart[i];
+                _logger.Debug("=============================================================================");
+                _logger.Debug("=============================================================================");
                 _logger.Debug(
                     "Column start {ColumnIndex}. Token: {TokenText} ({TokenStartPosition}, {TokenEndPosition})", 
                     i, 
                                 col.Token?.Text,
                                 col.Token?.StartPosition,
-                                col.Token?.EndPosition
-                    );
-                var nextCol = i < chart.ColumnsCount-1 ? chart[i + 1] : null;
+                                col.Token?.EndPosition);
                 
+                var nextCol = i < chart.ColumnsCount - 1 ? chart[i + 1] : null;
                 if (nextCol!=null)
                     _checkStartRules(col);
 
@@ -56,7 +56,8 @@ namespace TxTraktor.Parse
         
         private void _scan(State state, Column col, Column nextCol)
         {
-            if (state.CurrentTerm.IsValid(col.Token))
+            var term123 = state.CurrentTerm;
+            if (state.CurrentTerm.CheckConditions(col.Token))
             {
                 var term = state.CurrentTerm;
                 var leaf = new Leaf(term, 
@@ -74,7 +75,11 @@ namespace TxTraktor.Parse
                     endColumnIndex: col.Index + 1);
                 state.AddChild(newState);
                 nextCol.AddState(newState);
-                _logger.Debug("Scan state: {State}", newState);
+                _logger.Debug("SCAN: Success {State} -> {NewState}", state, newState);
+            }
+            else
+            {
+                _logger.Debug("SCAN: Term condition {Term} returned false for token {Token}", state.CurrentTerm, col.Token);
             }
         }
         
@@ -98,7 +103,7 @@ namespace TxTraktor.Parse
                     parent: state
                 );
                 col.AddState(newState);
-                _logger.Debug("Predict state: {State}", newState);
+                _logger.Debug("PREDICT: {State}", newState);
             }
 
             if (term.IsNullable)
@@ -113,7 +118,7 @@ namespace TxTraktor.Parse
                     endColumnIndex: col.Index
                 );
                 col.AddState(newState);
-                _logger.Debug("Predict empty state: {State}", newState);
+                _logger.Debug("PREDICT: From empty {State}", newState);
             }
         }
         
@@ -122,14 +127,14 @@ namespace TxTraktor.Parse
             var headToken = state.Node.Head;
             if (!state.Node.IsValid)
             {
-                _logger.Debug("State '{State}' is not valid. Ignore complete.", state);
+                _logger.Debug("COMPLETE: State '{State}' is not valid. Ignore complete.", state);
                 return;
             }
 
             foreach (var parent in state.Parents)
             {
                 // проверяем условие на родительский нетерминал
-                if (parent.CurrentTerm.IsValid(headToken))
+                if (parent.CurrentTerm.CheckConditions(headToken))
                 {
                     var node = state.Node.Copy();
                     node.LocalName = parent.CurrentTerm.LocalName;
@@ -143,7 +148,11 @@ namespace TxTraktor.Parse
                         endColumnIndex: col.Index
                     );
                     col.AddState(newState);
-                    _logger.Debug("Complete state: {State}", newState);
+                    _logger.Debug("COMPLETE: New state {newState} from {state}", newState, state);
+                }
+                else
+                {
+                    _logger.Debug("COMPLETE: Nonterminal condition returned false. Parent {parent} from {state}", parent, state);
                 }
             }
         }
@@ -166,7 +175,7 @@ namespace TxTraktor.Parse
                             endColumnIndex: col.Index
                         );
                         col.AddState(state);
-                        _logger.Debug("Start state: {State}", state);
+                        _logger.Debug("START: {State}", state);
                     }
                 }
             }

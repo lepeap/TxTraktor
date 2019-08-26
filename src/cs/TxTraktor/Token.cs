@@ -49,7 +49,7 @@ namespace TxTraktor
 
         public bool HasLemma(string text)
         {
-            return Text==text || (Morphs?.Any(x => x.Lemma == text) ?? false);
+            return LowerText==text || (Morphs?.Any(x => x.Lemma == text) ?? false);
         }
         
         public override string ToString()
