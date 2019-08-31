@@ -1,6 +1,6 @@
 namespace TxTraktor.Tokenize
 {
-    internal class TextInfo
+    public class TextInfo
     {
         public TextInfo(int tokensCount, int textLength)
         {

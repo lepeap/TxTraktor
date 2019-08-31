@@ -4,7 +4,7 @@ using TxTraktor.Tokenize;
 
 namespace TxTraktor
 {
-    internal class Token
+    public class Token
     {
         private string _lowerText;
         public Token(string text, int index, int startPosition, int endPosition, TextInfo textInfo)

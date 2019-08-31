@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace TxTraktor.Morphology
 {
-    internal class MorphInfo
+    public class MorphInfo
     {
         private ReadOnlyDictionary<string, string> _grams;
         public MorphInfo(string lemma, ReadOnlyDictionary<string, string> grams)

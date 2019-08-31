@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TxTraktor.Tokenize
 {
-    internal interface ITokenizer
+    public interface ITokenizer
     {
         IEnumerable<Token> Tokenize(string text);
     }

@@ -13,39 +13,52 @@ namespace TxTraktor
 {
     public class ExtractorFactory
     {
+        private ExtractorSettings _settings;
+        private IEnumerable<IExtension> _extensions;
+        public ExtractorFactory(ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
+        {
+            _settings = settings;
+            _extensions = extensions;
+        }
+
         public static IExtractor Create(ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
         {
-            return new ExtractorFactory().CreateExtractor(settings, extensions);
+            return new ExtractorFactory(settings, extensions).CreateExtractor();
         }
 
-        internal virtual IGrammarRepository _CreateGrammarRepository(ExtractorSettings settings)
+        public virtual IGrammarRepository GrammarRepository
         {
-            return new FsGrammarRepository(settings.GrammarsDirPath, settings.GrammarsExtension);
+            get
+            {
+                return new FsGrammarRepository(_settings.GrammarsDirPath, _settings.GrammarsExtension);
+            }
         }
 
-        public IExtractor CreateExtractor(ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
+        public virtual ITokenizer Tokenizer => new WordPunctTokenizer();
+
+        public IExtractor CreateExtractor()
         {
-            var tokenizer = new WordPunctTokenizer();
-            var logger = settings.Logger ?? new MoqLogger();
-            var gramRep = _CreateGrammarRepository(settings);
+            var tokenizer = Tokenizer;
+            var logger = _settings.Logger ?? new MoqLogger();
+            var gramRep = GrammarRepository;
             
-            var gramCompiler = new GrammarCompiler(tokenizer, extensions);
-            var startTerminalsCreator = new StartTerminalsCreator(settings);
+            var gramCompiler = new GrammarCompiler(tokenizer, _extensions);
+            var startTerminalsCreator = new StartTerminalsCreator(_settings);
             
             var srcGrams = gramRep.GetAll();
-            var grams = _getGrammars(logger, srcGrams, settings.Language);
+            var grams = _getGrammars(logger, srcGrams, _settings.Language);
             
-            var rules = gramCompiler.Compile(grams, settings.Variables);
+            var rules = gramCompiler.Compile(grams, _settings.Variables);
             var startRules = startTerminalsCreator.Create(rules);
             var parser = new EarleyParser(startRules, logger);
 
 
             IMorphAnalizer morph = null;
             
-            if (settings.Language == Language.Ru)
+            if (_settings.Language == Language.Ru)
                 morph = new RuMorphAnalizer();
 
-            var extractor = new Extractor(tokenizer, morph, parser, settings, logger);
+            var extractor = new Extractor(tokenizer, morph, parser, _settings, logger);
 
             return extractor;
         }

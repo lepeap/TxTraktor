@@ -20,7 +20,7 @@ namespace Test.Extract
             if (settings==null)
                 settings = new ExtractorSettings();
 
-            var extractor = new TestExtractorFactory(rules).CreateExtractor(settings, extensions);
+            var extractor = new TestExtractorFactory(settings, extensions, rules).CreateExtractor();
             var result = extractor.Parse(text);
             _check(etalon.ToArray(), result.ToArray());
         }
