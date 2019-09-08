@@ -15,7 +15,10 @@ namespace TxTraktor.Parse
         {
             var rules = rls.Where(x =>
                 x.HasTemplate && (_settings.RulesToExtract == null || _settings.RulesToExtract.Contains(x.Name)));
-            return StartTerminal.Create(rules).ToArray();
+            var startItems = StartTerminal.Create(rules).ToArray();
+            if (!startItems.Any())
+                throw new ExtractionException("No start rules found");
+            return startItems;
         }
     }
 }
