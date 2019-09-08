@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TxTraktor.Compile;
 using TxTraktor.Extension;
 using TxTraktor.Extract;
@@ -68,14 +70,14 @@ namespace TxTraktor
             Language lang)
         {
             var gramParser = new GrammarParser(logger);
-            var errorGrams = new List<string>();
+            var errorGrams = new Dictionary<string, string[]>();
             var grams = new List<Grammar>();
             foreach (var srcGram in srcGrams)
             {
                 var gram = gramParser.Parse(srcGram.key, srcGram.src);
                 
-                if (gram==null)
-                    errorGrams.Add(srcGram.key);
+                if (gram.HasErrors)
+                    errorGrams[srcGram.key] = gram.Errors;
                 
                 else if (gram.Language != lang)
                 {
@@ -86,9 +88,21 @@ namespace TxTraktor
             }
 
             if (errorGrams.Any())
-                throw new GrammarSourceParsingException(
-                    $"Parsing errors in grammars: {string.Join(",", errorGrams)}"
-                );
+            {
+                var sb = new StringBuilder("Parsing errors in grammars.");
+                sb.Append(Environment.NewLine);
+                foreach (var kp in errorGrams)
+                {
+                    sb.Append($"Grammar '{kp.Key}':");
+                    sb.Append(Environment.NewLine);
+                    foreach (var error in kp.Value)
+                    {
+                        sb.Append($"\t{error}");
+                        sb.Append(Environment.NewLine);
+                    }
+                }
+                throw new GrammarSourceParsingException(sb.ToString());
+            }
 
             return grams;
         }

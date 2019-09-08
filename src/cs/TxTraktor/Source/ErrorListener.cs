@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Antlr4.Runtime;
 
 namespace TxTraktor.Source
@@ -11,9 +13,12 @@ namespace TxTraktor.Source
         {
             _grammarKey = grammarKey;
             _logger = logger;
+            Errors = new List<string>();
         }
+        
+        public  List<string> Errors { get; }
 
-        public bool HasErrors { get; private set; }
+        public bool HasErrors => Errors.Any();
 
         public override void SyntaxError(TextWriter output, 
             IRecognizer recognizer, 
@@ -23,9 +28,10 @@ namespace TxTraktor.Source
             string msg, 
             RecognitionException e)
         {
-            HasErrors = true;
-            _logger.Error("Syntax error at grammar {GrammarKey}. Message \"{Message}\" at line {Line} position {Position}", 
-                _grammarKey, msg, line, charPositionInLine);
+            var error =
+                $"Syntax error at grammar \"{_grammarKey}\". Message: \"{msg}\" at line {line} position {charPositionInLine}";
+            Errors.Add(error);
+            _logger.Error(error);
         }
     }
 }

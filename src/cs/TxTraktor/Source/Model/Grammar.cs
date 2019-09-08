@@ -30,9 +30,10 @@ namespace TxTraktor.Source.Model
         public string Key { get; set; }
         public string Name { get; set; }
         public Language Language { get; set; } = Language.Unknown;
+        public bool HasErrors => Errors != null && Errors.Any();
+        public string[] Errors { get; set; }
         public IEnumerable<Rule> Rules => _rules;
         public IEnumerable<Import> Imports => _imports;
-   
         public bool HasGrammarImports => Imports != null && Imports.Any();
 
         public void AddRule(Rule rule)

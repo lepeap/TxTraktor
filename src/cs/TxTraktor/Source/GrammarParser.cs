@@ -28,9 +28,15 @@ namespace TxTraktor.Source
             var listener = new Main();
             walker.Walk(listener, cont);
 
-            
+
             if (errorListener.HasErrors)
-                return null;
+            {
+                return new Grammar()
+                {
+                    Key = grammarKey,
+                    Errors = errorListener.Errors.ToArray()
+                };
+            }
 
             return listener.Grammar;
         }

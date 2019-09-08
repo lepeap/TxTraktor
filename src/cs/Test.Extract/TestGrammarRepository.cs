@@ -11,7 +11,22 @@ namespace Test.Extract
             _grammar = "grammar Test;\nlang ru;\n" + rules;
             
         }
-        
+
+        public IEnumerable<string> ListAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string Get(string key)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Save(string key, string text)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<(string key, string src)> GetAll()
         {
             yield return (key: "Test", src: _grammar);
