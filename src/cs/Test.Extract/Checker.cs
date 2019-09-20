@@ -15,13 +15,14 @@ namespace Test.Extract
                                  string rules, 
                                  IEnumerable<ExtractionDic> etalon, 
                                  ExtractorSettings settings = null,
-                                 IEnumerable<IExtension> extensions = null)
+                                 IEnumerable<IExtension> extensions = null,
+                                 params string[] rulesToExtract)
         {
             if (settings==null)
                 settings = new ExtractorSettings();
 
             var extractor = new TestExtractorFactory(settings, extensions, rules).CreateExtractor();
-            var result = extractor.Parse(text);
+            var result = extractor.Parse(text, rulesToExtract);
             _check(etalon.ToArray(), result.ToArray());
         }
 

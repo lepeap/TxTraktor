@@ -4,6 +4,6 @@ namespace TxTraktor.Extract
 {
     public interface IExtractor
     {
-        IEnumerable<ExtractionDic> Parse(string text);
+        IEnumerable<ExtractionDic> Parse(string text, params string[] rulesToExtract);
     }
 }

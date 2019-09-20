@@ -4,6 +4,6 @@ namespace TxTraktor.Parse
 {
     internal interface IChartParser
     {
-        Chart Parse(IEnumerable<Token> tokens);
+        Chart Parse(IEnumerable<Token> tokens, params string[] rulesToExtract);
     }
 }

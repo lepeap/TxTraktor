@@ -15,7 +15,7 @@ namespace TxTraktor.Parse
             _logger = logger;
         }
         
-        public Chart Parse(IEnumerable<Token> tokens)
+        public Chart Parse(IEnumerable<Token> tokens, params string[] rulesToExtract)
         {
             var chart = new Chart(tokens);
             _logger.Debug(
@@ -38,7 +38,7 @@ namespace TxTraktor.Parse
                 
                 var nextCol = i < chart.ColumnsCount - 1 ? chart[i + 1] : null;
                 if (nextCol!=null)
-                    _checkStartRules(col);
+                    _checkStartRules(col, rulesToExtract);
 
                 foreach (var state in col.States)
                 {
@@ -157,7 +157,7 @@ namespace TxTraktor.Parse
             }
         }
 
-        private void _checkStartRules(Column col)
+        private void _checkStartRules(Column col, params string[] rulesToExtract)
         {
             foreach (var srl in _startStartTerminals)
             {
@@ -165,6 +165,9 @@ namespace TxTraktor.Parse
                 {
                     foreach (var srlRule in srl.Rules)
                     {
+                        if (rulesToExtract.Any() && !rulesToExtract.Contains(srlRule.Name))
+                            continue;
+                        
                         var node = new Node(srlRule, 0, semanticId: srlRule[0].SemanticId);
                         var state = new State(
                             srlRule,

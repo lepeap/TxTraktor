@@ -30,12 +30,12 @@ namespace TxTraktor.Extract
             _logger = logger;
         }
 
-        public IEnumerable<ExtractionDic> Parse(string text)
+        public IEnumerable<ExtractionDic> Parse(string text, params string[] rulesToExtract)
         {
             _logger.Debug("Начало извлечения из текста: {Text}", text);
             var tokens = _tokenizer.Tokenize(text).ToArray();
             _morphAnalizer?.SetMorphInfo(tokens);
-            var chart = _parser.Parse(tokens);
+            var chart = _parser.Parse(tokens, rulesToExtract);
             var complShart = chart.GetOnyCompletedChart();
             var result = _processChart(complShart, text);
             return result;
