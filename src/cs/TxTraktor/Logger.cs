@@ -7,47 +7,50 @@ namespace TxTraktor
 {
     public class Logger : ILogger
     {
-        public Logger(bool debugMode = false)
+        private readonly Serilog.Core.Logger _logger;
+        public Logger(bool debugMode = false, string txtFilePath = null, string jsonFilePath = null)
         {
-            var txtFile = "log.txt";
-            if (File.Exists(txtFile))
-                File.Delete(txtFile);
-
-            var jsonFile = "log.json";
-            if (File.Exists(jsonFile))
-                File.Delete(jsonFile);
-            
             var logConfig = new LoggerConfiguration()
-                .WriteTo.Console(theme: ConsoleTheme.None)
-                .WriteTo.File(txtFile)
-                .WriteTo.File(new JsonFormatter(), jsonFile);
+                .WriteTo.Console(theme: ConsoleTheme.None);
+            
+            if (txtFilePath != null && File.Exists(txtFilePath))
+                File.Delete(txtFilePath);
+                    
+            if (txtFilePath != null)
+                logConfig.WriteTo.File(txtFilePath);
+                    
+            if (jsonFilePath != null && File.Exists(jsonFilePath))
+                File.Delete(jsonFilePath);
+                    
+            if (jsonFilePath != null)
+                logConfig.WriteTo.File(new JsonFormatter(), jsonFilePath);
 
             if (debugMode)
                 logConfig.MinimumLevel.Debug();
             else
                 logConfig.MinimumLevel.Information();
             
-            Log.Logger = logConfig.CreateLogger();
+            _logger = logConfig.CreateLogger();
         }
 
         public void Debug(string template, params object[] items)
         {
-            Log.Debug(template, items);
+            _logger.Debug(template, items);
         }
 
         public void Information(string template, params object[] items)
         {
-            Log.Information(template, items);
+            _logger.Information(template, items);
         }
 
         public void Warning(string template, params object[] items)
         {
-            Log.Warning(template, items);
+            _logger.Warning(template, items);
         }
 
         public void Error(string template, params object[] items)
         {
-            Log.Error(template, items);
+            _logger.Error(template, items);
         }
     }
 }
