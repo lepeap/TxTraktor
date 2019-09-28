@@ -303,7 +303,6 @@ namespace TxtTractor.Test.Source
             );
         }
         
-                
         [Test]
         public void Quote()
         {
@@ -319,6 +318,59 @@ namespace TxtTractor.Test.Source
                 }
             );
         }
+        
+        [Test]
+        public void TwoLemmasOnOneLine()
+        {
+            Checker.CheckRule(
+                "S -> l\"военный\" l\"округ\" ",
+                new[]
+                {
+                    new Rule("S", 
+                        new[]
+                        {
+                            new RuleItem(RuleItemType.Lemma, "военный"),
+                            new RuleItem(RuleItemType.Lemma, "округ")
+                        })
+                }
+            );
+        }
+                
+        [Test]
+        public void TwoRegexOnOneLine()
+        {
+            Checker.CheckRule(
+                "S -> r\"военный\" r\"округ\" ",
+                new[]
+                {
+                    new Rule("S", 
+                        new[]
+                        {
+                            new RuleItem(RuleItemType.Regex, "военный"),
+                            new RuleItem(RuleItemType.Regex, "округ")
+                        })
+                }
+            );
+        }
+        
+        [Test]
+        public void TwoMorphsOnOneLine()
+        {
+            Checker.CheckRule(
+                "S -> m\"военный\" m\"округ\" ",
+                new[]
+                {
+                    new Rule("S", 
+                        new[]
+                        {
+                            new RuleItem(RuleItemType.Morphology, "военный"),
+                            new RuleItem(RuleItemType.Morphology, "округ")
+                        })
+                }
+            );
+        }
+
+        
 
     }
 }
