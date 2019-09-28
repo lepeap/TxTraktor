@@ -8,16 +8,23 @@ namespace TxTraktor
     public class Logger : ILogger
     {
         private readonly Serilog.Core.Logger _logger;
-        public Logger(bool debugMode = false, string txtFilePath = null, string jsonFilePath = null)
+        public Logger(bool debugMode = false, 
+                      string txtFilePath = null, 
+                      string jsonFilePath = null,
+                      bool shortTemplate = false)
         {
+            string template = shortTemplate
+                ? "{Message:lj}{NewLine}"
+                : "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}";
+            
             var logConfig = new LoggerConfiguration()
-                .WriteTo.Console(theme: ConsoleTheme.None);
+                .WriteTo.Console(theme: ConsoleTheme.None, outputTemplate: template);
             
             if (txtFilePath != null && File.Exists(txtFilePath))
                 File.Delete(txtFilePath);
                     
             if (txtFilePath != null)
-                logConfig.WriteTo.File(txtFilePath);
+                logConfig.WriteTo.File(txtFilePath, outputTemplate: template);
                     
             if (jsonFilePath != null && File.Exists(jsonFilePath))
                 File.Delete(jsonFilePath);
