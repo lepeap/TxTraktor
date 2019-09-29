@@ -7,11 +7,13 @@ namespace TxTraktor.Parse
     internal class StartTerminal
     {
         private IEnumerable<Rule> _rules;
+
         public StartTerminal(Terminal terminal, IEnumerable<Rule> rules)
         {
             Terminal = terminal;
             _rules = rules;
         }
+
         public Terminal Terminal { get; private set; }
         public IEnumerable<Rule> Rules => _rules;
 
@@ -34,7 +36,7 @@ namespace TxTraktor.Parse
                     }
                     else
                     {
-                        termDic[terminal] = new List<Rule>(){rule};
+                        termDic[terminal] = new List<Rule>() {rule};
                     }
                 }
             }
@@ -45,20 +47,29 @@ namespace TxTraktor.Parse
 
         private static IEnumerable<Terminal> GetTerminals(Rule rule)
         {
+            int curIndex = 0;
             var term = rule.Terms.First();
-            if (term.IsTerminal)
+            bool execute = true;
+            while (execute)
             {
-                yield return (Terminal) term;
-            }
-            else
-            {
-                var nonTerm = (NonTerminal) term;
-                foreach (var nonTermRule in nonTerm.Rules)
+                if (term.IsTerminal)
                 {
-                    foreach (var terminal in GetTerminals(nonTermRule))
+                    yield return (Terminal) term;
+                    execute = false;
+                }
+                else
+                {
+                    var nonTerm = (NonTerminal) term;
+                    foreach (var nonTermRule in nonTerm.Rules)
                     {
-                        yield return terminal;
+                        foreach (var terminal in GetTerminals(nonTermRule))
+                        {
+                            yield return terminal;
+                        }
                     }
+                    execute = nonTerm.IsNullable && curIndex + 1 < rule.TermsCount;
+                    if (execute)
+                        term = rule[++curIndex];
                 }
             }
         }
