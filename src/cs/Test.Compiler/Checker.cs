@@ -18,7 +18,7 @@ namespace TxtTractor.Test.Compiler
 
         private static IGrammarCompiler _createCompiler(IEnumerable<IExtension> extensions)
         {
-            return new GrammarCompiler(new WordPunctTokenizer(), extensions);
+            return new GrammarCompiler(new WordPunctTokenizer(), null, extensions);
         }
         
         internal static void CheckRules(IEnumerable<RuleSrc> srcRules, 

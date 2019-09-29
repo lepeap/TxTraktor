@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TxTraktor.Extension;
+using TxTraktor.Morphology;
 using TxTraktor.Source.Model;
 using TxTraktor.Tokenize;
 
@@ -12,9 +13,11 @@ namespace TxTraktor.Compile
         private readonly string[] _regexKeys = {"regex", "рег"};
         private readonly Dictionary<string, IExtension> _extensions;
         private readonly ITokenizer _tokenizer;
+        private readonly IMorphAnalizer _morph;
 
-        public VariablesProcessor(ITokenizer tokenizer, IEnumerable<IExtension> extensions)
+        public VariablesProcessor(ITokenizer tokenizer, IMorphAnalizer morph, IEnumerable<IExtension> extensions)
         {
+            _morph = morph;
             _tokenizer = tokenizer;
             _extensions = extensions?.ToDictionary(x=>x.Name, x=>x);
         }
@@ -97,13 +100,29 @@ namespace TxTraktor.Compile
                         var variableName = item.Key;
                         var idKey = $"{item.Key}_id";
                         var value = varDic[variableName];
+                        item.Type = type;
+                        item.Key = value;
+                        if (!item.HasLocalName)
+                            item.LocalName = variableName;
+                        
+                        if (varDic.ContainsKey(idKey))
+                            item.SemanticId = varDic[idKey];
+                        
+                        if (type == RuleItemType.Regex)
+                            continue;
+
                         var tokenized = _tokenizer.Tokenize(value).ToArray();
                         if (tokenized.Length > 1)
                         {
                             string ruleName = $"{newRule.Name}_gen_{variableName}_{varIndex}";
                             var genRule = new Rule(ruleName, 
-                                tokenized.Select(t=>new RuleItem(RuleItemType.Terminal, t.Text)
-                            ));
+                                tokenized.Select(t =>
+                                {
+                                    if (_morph != null && type == RuleItemType.Lemma)
+                                        return new RuleItem(RuleItemType.Lemma, _morph?.Lemmatize(t.Text) ?? t.Text);
+                                    
+                                    return new RuleItem(RuleItemType.Terminal, t.Text);
+                                }));
                             if (type != RuleItemType.Terminal)
                                 genRule.Items.First().Type = type;
                             yield return genRule;
@@ -111,17 +130,10 @@ namespace TxTraktor.Compile
                             item.Key = ruleName;
                             item.Type = RuleItemType.NonTerminal;
                         }
-                        else
-                        {
-                            item.Type = type;
-                            item.Key = value;
-                        }
-
-                        if (!item.HasLocalName)
-                            item.LocalName = variableName;
                         
-                        if (varDic.ContainsKey(idKey))
-                            item.SemanticId = varDic[idKey];
+                        else if (type == RuleItemType.Lemma)
+                            item.Key = _morph?.Lemmatize(item.Key) ?? item.Key;
+                        
                     }
                 }
                 varIndex++;

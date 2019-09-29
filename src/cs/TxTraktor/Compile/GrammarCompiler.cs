@@ -3,6 +3,7 @@ using System.Linq;
 using TxTraktor.Compile.Model;
 using TxTraktor.Compile.Validation;
 using TxTraktor.Extension;
+using TxTraktor.Morphology;
 using TxTraktor.Source.Model;
 using TxTraktor.Tokenize;
 using Rule = TxTraktor.Compile.Model.Rule;
@@ -16,11 +17,11 @@ namespace TxTraktor.Compile
         private readonly ConditionManager _condMan;
         private readonly ValidationManager _valMan;
         private readonly VariablesProcessor _variablesProcessor;
-        public GrammarCompiler(ITokenizer tokenizer, IEnumerable<IExtension> extensions)
+        public GrammarCompiler(ITokenizer tokenizer, IMorphAnalizer morph, IEnumerable<IExtension> extensions)
         {
             _condMan =  new ConditionManager();
             _valMan = new ValidationManager();
-            _variablesProcessor = new VariablesProcessor(tokenizer, extensions);
+            _variablesProcessor = new VariablesProcessor(tokenizer, morph, extensions);
         }
         public IEnumerable<Rule> Compile(IEnumerable<Grammar> grammars, Dictionary<string, string> variables=null)
         {

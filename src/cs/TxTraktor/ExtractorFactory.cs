@@ -44,7 +44,12 @@ namespace TxTraktor
             var logger = _settings.Logger ?? new MoqLogger();
             var gramRep = GrammarRepository;
             
-            var gramCompiler = new GrammarCompiler(tokenizer, _extensions);
+            IMorphAnalizer morph = null;
+            
+            if (_settings.Language == Language.Ru)
+                morph = new RuMorphAnalizer();
+            
+            var gramCompiler = new GrammarCompiler(tokenizer, morph, _extensions);
             var startTerminalsCreator = new StartTerminalsCreator(_settings);
             
             var srcGrams = gramRep.GetAll();
@@ -55,10 +60,7 @@ namespace TxTraktor
             var parser = new EarleyParser(startRules, logger);
 
 
-            IMorphAnalizer morph = null;
-            
-            if (_settings.Language == Language.Ru)
-                morph = new RuMorphAnalizer();
+
 
             var extractor = new Extractor(tokenizer, morph, parser, _settings, logger);
 
