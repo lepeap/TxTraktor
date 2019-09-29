@@ -1,9 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <Version>0.0.1</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <AssemblyName>TxTraktor.Sparql</AssemblyName>
         <RootNamespace>TxTraktor.Sparql</RootNamespace>
+        <Authors>Alexander Lepe</Authors>
+        <Description>Sparql extension for TxTraktor library</Description>
+        <Copyright>Copyright © Alexander Lepe</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>nlp,ontology</PackageTags>
+        <RepositoryUrl>https://github.com/lepeap/TxTraktor</RepositoryUrl>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <ItemGroup>
