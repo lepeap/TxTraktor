@@ -5,7 +5,7 @@ namespace TxTraktor.Tokenize
 {
     internal class WordPunctTokenizer : ITokenizer
     {
-        private Regex _reg = new Regex(@"[\w\-{IsCyrillic}]+|[^\w\-{IsCyrillic}\s]+", RegexOptions.Compiled);
+        private Regex _reg = new Regex(@"[\w\-{IsCyrillic}]+|[\p{P}]|[^\w\-{IsCyrillic}\s]+", RegexOptions.Compiled);
 
 
         public IEnumerable<Token> Tokenize(string text)
