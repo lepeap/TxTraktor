@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace TxTraktor.Tokenize
 {
-    internal class WordPunctTokenizer : ITokenizer
+    public class WordPunctTokenizer : ITokenizer
     {
         private Regex _reg = new Regex(@"[\w\-{IsCyrillic}]+|[\p{P}]|[^\w\-{IsCyrillic}\s]+", RegexOptions.Compiled);
 
