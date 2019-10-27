@@ -15,7 +15,7 @@ namespace Test.Extract
                 "S2 -> \"большой\";\n"+
                 "S[Test=$name] -> S1<согл=1,число> S2<согл=1,число> #set name=\"1234\";",
                 new []{
-                    new ExtractionDic("Test.S", "тест большой", 0)
+                    new ExtractionDic("Main.S", "тест большой", 0)
                     {
                         {"Test", new ExtractionValue( "1234", ValueType.String)}
                     }

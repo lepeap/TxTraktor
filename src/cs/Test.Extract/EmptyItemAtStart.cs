@@ -13,14 +13,14 @@ namespace Test.Extract
                 "S[Test=true] -> \"fff\"? \"1234\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "1234", 5)
+                    new ExtractionDic("Main.S", "1234", 5)
                     {
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
                 null,
                 null,
-                "Test.S"
+                "Main.S"
             );
         }
         
@@ -32,14 +32,14 @@ namespace Test.Extract
                 "S[Test=true] -> \"fff\"? \"123\"? \"1234\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "1234", 5)
+                    new ExtractionDic("Main.S", "1234", 5)
                     {
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
                 null,
                 null,
-                "Test.S"
+                "Main.S"
             );
         }
         
@@ -51,14 +51,14 @@ namespace Test.Extract
                 "S[Test=true] -> \"fff\"? \"123\"? \"fff1\"?  \"fff1\"?  \"fff1\"? \"1234\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "1234", 5)
+                    new ExtractionDic("Main.S", "1234", 5)
                     {
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
                 null,
                 null,
-                "Test.S"
+                "Main.S"
             );
         }
         
@@ -70,14 +70,14 @@ namespace Test.Extract
                 "S[Test=true] -> \"fff\"* \"1234\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "1234", 5)
+                    new ExtractionDic("Main.S", "1234", 5)
                     {
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
                 null,
                 null,
-                "Test.S"
+                "Main.S"
             );
         }
         
@@ -90,14 +90,14 @@ namespace Test.Extract
                 "S[Test=true] -> \"fff\"* \"fff\"* \"1234\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "1234", 5)
+                    new ExtractionDic("Main.S", "1234", 5)
                     {
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
                 null,
                 null,
-                "Test.S"
+                "Main.S"
             );
         }
     }

@@ -13,7 +13,7 @@ namespace Test.Extract
                 "S1 -> r\"1234.+\";\n"+
                 "S[Test=$value] -> S1<regex=\"12345\\d+\"> as value;",
                 new []{
-                    new ExtractionDic("Test.S", "123456", 0)
+                    new ExtractionDic("Main.S", "123456", 0)
                     {
                         {"Test", new ExtractionValue( "123456", ValueType.String)}
                     }
@@ -29,7 +29,7 @@ namespace Test.Extract
                 "S1 -> l\"тест\";\n"+
                 "S[Test=$value] -> S1<нбол> as value;",
                 new []{
-                    new ExtractionDic("Test.S", "Тест", 0)
+                    new ExtractionDic("Main.S", "Тест", 0)
                     {
                         {"Test", new ExtractionValue( "Тест", ValueType.String)}
                     }

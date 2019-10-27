@@ -13,7 +13,7 @@ namespace Test.Extract
                 "тест 1234.",
                 "S[Test=$name] -> \"тест\" as name;",
                 new []{
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue("тест", ValueType.String)}
                     }
@@ -28,7 +28,7 @@ namespace Test.Extract
                 "тест 1234.",
                 "S[Test=$name] -> \"тест\" \"1234\" as name;",
                 new []{
-                    new ExtractionDic("Test.S", "тест 1234", 0)
+                    new ExtractionDic("Main.S", "тест 1234", 0)
                     {
                         {"Test", new ExtractionValue("1234", ValueType.String)}
                     }
@@ -44,7 +44,7 @@ namespace Test.Extract
                  "S1 -> \"тест\";"+
                        "S[Test=$name] -> S1 as name;",
                 new []{
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue("тест", ValueType.String)}
                     }
@@ -56,7 +56,7 @@ namespace Test.Extract
         [Test]
         public void RefToNonTerminalWithTemplate()
         {
-            var embedDic = new ExtractionDic("Test.S1", "1234", 5)
+            var embedDic = new ExtractionDic("Main.S1", "1234", 5)
             {
                 {"Val", new ExtractionValue(123, ValueType.Int)}
             };
@@ -66,7 +66,7 @@ namespace Test.Extract
                 "S[Test=$name] -> S1 as name \".\";",
                 new []{
                     embedDic,
-                    new ExtractionDic("Test.S", "1234.", 5)
+                    new ExtractionDic("Main.S", "1234.", 5)
                     {
                         {
                             "Test", 
@@ -88,11 +88,11 @@ namespace Test.Extract
                 "S1[Value=123] -> \"1234\";"+
                 "S[Test=$name] -> S1 as name \".\";",
                 new []{
-                    new ExtractionDic("Test.S1", "1234", 5)
+                    new ExtractionDic("Main.S1", "1234", 5)
                     {
                         {"Value", new ExtractionValue(123, ValueType.Int)}
                     },
-                    new ExtractionDic("Test.S", "1234.", 5)
+                    new ExtractionDic("Main.S", "1234.", 5)
                     {
                         {
                             "Test", 
@@ -111,11 +111,11 @@ namespace Test.Extract
                 "S1[Val=123] -> \"1234\";"+
                 "S[Test=$name.Val] -> S1 as name \".\";",
                 new []{
-                    new ExtractionDic("Test.S1", "1234", 5)
+                    new ExtractionDic("Main.S1", "1234", 5)
                     {
                         {"Val", new ExtractionValue(123, ValueType.Int)}
                     },
-                    new ExtractionDic("Test.S", "1234.", 5)
+                    new ExtractionDic("Main.S", "1234.", 5)
                     {
                         {
                             "Test", 
@@ -136,7 +136,7 @@ namespace Test.Extract
                 "тест 1234.",
                 "S[Test=$name] -> \"тест\";",
                 new []{
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         
                     }
@@ -152,10 +152,10 @@ namespace Test.Extract
                         "S1 -> \"тест\" as value;"+
                               "S[Test=$name] -> S1 as name;",
                 new []{
-                    new ExtractionDic("Test.S1", "тест", 0){
+                    new ExtractionDic("Main.S1", "тест", 0){
                         {"Value", new ExtractionValue("тест", ValueType.String)}
                     },
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue("тест", ValueType.String)}
                     }
@@ -171,10 +171,10 @@ namespace Test.Extract
                 "S1 -> \"№\"? \"1234\" as value;"+
                 "S[Test=$name] -> S1 as name;",
                 new []{
-                    new ExtractionDic("Test.S1", "№ 1234", 5){
+                    new ExtractionDic("Main.S1", "№ 1234", 5){
                         {"Value", new ExtractionValue("1234", ValueType.String)}
                     },
-                    new ExtractionDic("Test.S", "№ 1234", 5)
+                    new ExtractionDic("Main.S", "№ 1234", 5)
                     {
                         {"Test", new ExtractionValue("1234", ValueType.String)}
                     }
@@ -191,10 +191,10 @@ namespace Test.Extract
                 "S1 -> \"№\"? \"1234\" as value;"+
                 "S[Test=$name] -> S1? as name \".\";",
                 new []{
-                    new ExtractionDic("Test.S1", "№ 1234", 5){
+                    new ExtractionDic("Main.S1", "№ 1234", 5){
                         {"Value", new ExtractionValue("1234", ValueType.String)}
                     },
-                    new ExtractionDic("Test.S", "№ 1234.", 5)
+                    new ExtractionDic("Main.S", "№ 1234.", 5)
                     {
                         {"Test", new ExtractionValue("1234", ValueType.String)}
                     }

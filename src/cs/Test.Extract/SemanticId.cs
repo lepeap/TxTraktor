@@ -31,7 +31,7 @@ namespace Test.Extract
                 "тест 1234.",
                 "S[Test=$test] -> <test>test</end> $test;",
                 new []{
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue( "тест", ValueType.String, "qwerty")}
                     }

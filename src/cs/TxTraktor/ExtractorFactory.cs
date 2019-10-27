@@ -22,10 +22,39 @@ namespace TxTraktor
             _settings = settings;
             _extensions = extensions;
         }
+        
+        public static IExtractor Create(string rules, ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
+        {
+            var grammar = _createMainGrammar(rules, settings.Language);
+            settings.MainGrammar = grammar;
+            return Create(settings, extensions);
+        }
+        
+        public static IExtractor Create(string rules,
+            Language language = Language.Ru,
+            bool selectLongest = true,
+            Dictionary<string, string> variables = null,
+            IEnumerable<IExtension> extensions = null)
+        {
+            var grammar = _createMainGrammar(rules, language);
+            var settings = new ExtractorSettings()
+            {
+                MainGrammar = grammar,
+                Language = language,
+                SelectLongest = selectLongest,
+                Variables = variables,
+            };
+            return Create(settings, extensions);
+        }
 
         public static IExtractor Create(ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
         {
             return new ExtractorFactory(settings, extensions).CreateExtractor();
+        }
+
+        private static string _createMainGrammar(string rules, Language language)
+        {
+            return $"grammar Main; lang {language.GetTextKey()}; {rules}";
         }
 
         public virtual IGrammarRepository GrammarRepository
@@ -51,19 +80,20 @@ namespace TxTraktor
             
             var gramCompiler = new GrammarCompiler(tokenizer, morph, _extensions);
             var startTerminalsCreator = new StartTerminalsCreator(_settings);
+
+            var srcGrams = new List<(string key, string src)>();
+            if (!string.IsNullOrWhiteSpace(_settings.MainGrammar))
+                srcGrams.Add((key: "main", src: _settings.MainGrammar));
             
-            var srcGrams = gramRep.GetAll();
+            if (!string.IsNullOrWhiteSpace(_settings.GrammarsDirPath)) 
+                srcGrams.AddRange(gramRep.GetAll());
+            
             var grams = _getGrammars(logger, srcGrams, _settings.Language);
-            
             var rules = gramCompiler.Compile(grams, _settings.Variables);
             var startRules = startTerminalsCreator.Create(rules);
             var parser = new EarleyParser(startRules, logger);
-
-
-
-
+            
             var extractor = new Extractor(tokenizer, morph, parser, _settings, logger);
-
             return extractor;
         }
 

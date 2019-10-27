@@ -4,6 +4,7 @@ namespace TxTraktor
 {
     public class ExtractorSettings
     {
+        public string MainGrammar { get; set; }
         public Language Language { get; set; } = Language.Ru;
         public string GrammarsDirPath { get; set; }
         public string GrammarsExtension { get; set; } = "gr";

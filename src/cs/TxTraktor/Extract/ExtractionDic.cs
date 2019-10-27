@@ -53,7 +53,6 @@ namespace TxTraktor.Extract
             set => _dic[key] = value;
         }
         
-
         public int Count => _dic.Count;
         
         public ExtractionDic Clone()

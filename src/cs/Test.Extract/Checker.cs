@@ -21,7 +21,7 @@ namespace Test.Extract
             if (settings==null)
                 settings = new ExtractorSettings();
 
-            var extractor = new TestExtractorFactory(settings, extensions, rules).CreateExtractor();
+            var extractor = ExtractorFactory.Create(rules, settings, extensions);
             var result = extractor.Parse(text, rulesToExtract);
             _check(etalon.ToArray(), result.ToArray());
         }

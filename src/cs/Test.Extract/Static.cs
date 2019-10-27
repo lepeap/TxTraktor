@@ -14,7 +14,7 @@ namespace Test.Extract
                 "S[Test=1] -> \"тест\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue(1, ValueType.Int)}
                     }
@@ -30,7 +30,7 @@ namespace Test.Extract
                 "S[Test=1] -> \"тест\" \"1234\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "тест 1234", 5)
+                    new ExtractionDic("Main.S", "тест 1234", 5)
                     {
                         {"Test", new ExtractionValue(1, ValueType.Int)}
                     }
@@ -46,7 +46,7 @@ namespace Test.Extract
                 "S[Test=1.1] -> \"тест\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue((float) 1.1, ValueType.Float)}
                     }
@@ -62,7 +62,7 @@ namespace Test.Extract
                 "S[Test=\"хер\"] -> \"тест\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue("хер", ValueType.String)}
                     }
@@ -78,7 +78,7 @@ namespace Test.Extract
                 "S[Test=true] -> \"тест\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
@@ -96,14 +96,14 @@ namespace Test.Extract
                 "S1[Test=true] -> \"1234\";",
                 new[]
                 {
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
                 null,
                 null,
-                "Test.S"
+                "Main.S"
             );
         }
     }

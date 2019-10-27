@@ -15,7 +15,7 @@ namespace Test.Extract
                 "тест 1234.",
                 "S[Test={123,true}] -> \"тест\";",
                 new []{
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                         {
@@ -35,7 +35,7 @@ namespace Test.Extract
                 "тест 1234.",
                 "S[Test={$name,$0}] -> \"тест\" as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
@@ -55,7 +55,7 @@ namespace Test.Extract
                 "тест 1234.",
                 "S[Test={$name,$1}] -> \"тест\" as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "тест", 0)
+                    new ExtractionDic("Main.S", "тест", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
@@ -74,7 +74,7 @@ namespace Test.Extract
                 "1 2 3 4",
                 "S[Test=$name] -> r\"\\d\"+ as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "1 2 3 4", 0)
+                    new ExtractionDic("Main.S", "1 2 3 4", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
@@ -86,7 +86,7 @@ namespace Test.Extract
                             ,ValueType.List)}
                     }
                 },
-                new ExtractorSettings() { RulesToExtract = new []{"Test.S"}}
+                new ExtractorSettings() { RulesToExtract = new []{"Main.S"}}
             );
         }
         
@@ -97,7 +97,7 @@ namespace Test.Extract
                 "1 2 3 4 .",
                 "S[Test=$name] -> r\"\\d\"* as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "1 2 3 4", 0)
+                    new ExtractionDic("Main.S", "1 2 3 4", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
@@ -109,7 +109,7 @@ namespace Test.Extract
                             ,ValueType.List)}
                     }
                 },
-                new ExtractorSettings() { RulesToExtract = new []{"Test.S"}}
+                new ExtractorSettings() { RulesToExtract = new []{"Main.S"}}
             );
         }
         
@@ -121,30 +121,30 @@ namespace Test.Extract
                 "S1 -> r\"\\d\" as test ;"+
                       "S[Test=$name] -> S1+ as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "1 2 3 4", 0)
+                    new ExtractionDic("Main.S", "1 2 3 4", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
                                 new ExtractionValue(
-                                    new ExtractionDic("Test.S1", "1", 0)
+                                    new ExtractionDic("Main.S1", "1", 0)
                                     {
                                         {"Test", new ExtractionValue("1", ValueType.String)}
                                     }
                                     , ValueType.Dictionary),
                                 new ExtractionValue(
-                                    new ExtractionDic("Test.S1", "2", 2)
+                                    new ExtractionDic("Main.S1", "2", 2)
                                     {
                                         {"Test", new ExtractionValue("2", ValueType.String)}
                                     }
                                     , ValueType.Dictionary),
                                 new ExtractionValue(
-                                    new ExtractionDic("Test.S1", "3", 4)
+                                    new ExtractionDic("Main.S1", "3", 4)
                                     {
                                         {"Test", new ExtractionValue("3", ValueType.String)}
                                     }
                                     , ValueType.Dictionary),
                                 new ExtractionValue(
-                                    new ExtractionDic("Test.S1", "4", 6)
+                                    new ExtractionDic("Main.S1", "4", 6)
                                     {
                                         {"Test", new ExtractionValue("4", ValueType.String)}
                                     }
@@ -153,7 +153,7 @@ namespace Test.Extract
                             ,ValueType.List)}
                     }
                 },
-                new ExtractorSettings() { RulesToExtract = new []{"Test.S"}}
+                new ExtractorSettings() { RulesToExtract = new []{"Main.S"}}
             );
         }
         
@@ -164,7 +164,7 @@ namespace Test.Extract
                 "1 2 3 4",
                 "S[Test=$name] -> r\"\\d\"{1,4} as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "1 2 3 4", 0)
+                    new ExtractionDic("Main.S", "1 2 3 4", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
@@ -176,7 +176,7 @@ namespace Test.Extract
                             ,ValueType.List)}
                     }
                 },
-                new ExtractorSettings() { RulesToExtract = new []{"Test.S"}}
+                new ExtractorSettings() { RulesToExtract = new []{"Main.S"}}
             );
         }
 
@@ -187,7 +187,7 @@ namespace Test.Extract
                 "1 2 3 4",
                 "S[Test=$name] -> \"1\" as name \"2\" as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "1 2", 0)
+                    new ExtractionDic("Main.S", "1 2", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
@@ -197,7 +197,7 @@ namespace Test.Extract
                             ,ValueType.List)}
                     }
                 },
-                new ExtractorSettings() { RulesToExtract = new []{"Test.S"}}
+                new ExtractorSettings() { RulesToExtract = new []{"Main.S"}}
             );
         }
         
@@ -209,7 +209,7 @@ namespace Test.Extract
                 "1 2 3 4",
                 "S[Test=$name] -> \"1\" as name \"2\" as name \"3\" as name ;",
                 new []{
-                    new ExtractionDic("Test.S", "1 2 3", 0)
+                    new ExtractionDic("Main.S", "1 2 3", 0)
                     {
                         {"Test", new ExtractionValue(new List<ExtractionValue>()
                             {
@@ -220,7 +220,7 @@ namespace Test.Extract
                             ,ValueType.List)}
                     }
                 },
-                new ExtractorSettings() { RulesToExtract = new []{"Test.S"}}
+                new ExtractorSettings() { RulesToExtract = new []{"Main.S"}}
             );
         }
         
