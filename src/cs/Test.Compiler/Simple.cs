@@ -50,6 +50,29 @@ namespace TxtTractor.Test.Compiler
         }
         
         [Test]
+        public void EverythingItemAndTerminal()
+        {
+            Checker.CheckRules(
+                new []
+                {
+                    new RuleSrc("S", new []
+                    {
+                        new RuleItem(RuleItemType.Everything, string.Empty),
+                        new RuleItem(RuleItemType.Terminal, "234")
+                    })
+                },
+                new []
+                {
+                    new Rule("S", new []
+                    {
+                        new Terminal(condition: new EverythingCondition()),
+                        new Terminal(condition: new TextCondition("234"))
+                    })
+                }
+            );
+        }
+        
+        [Test]
         public void OneRegex()
         {
             Checker.CheckRules(

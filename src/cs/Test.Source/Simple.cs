@@ -370,6 +370,23 @@ namespace TxtTractor.Test.Source
             );
         }
 
+                
+        [Test]
+        public void Everything()
+        {
+            Checker.CheckRule(
+                "S -> &. ",
+                new[]
+                {
+                    new Rule("S", 
+                        new[]
+                        {
+                            new RuleItem(RuleItemType.Everything, string.Empty)
+                        })
+                }
+            );
+        }
+        
         
 
     }

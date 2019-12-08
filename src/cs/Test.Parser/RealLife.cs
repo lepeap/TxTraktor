@@ -10,7 +10,7 @@ namespace TxtTractor.Test.Parser
     public class RealLife
     {
         [Test]
-        public void TestDate1()
+        public void Date1()
         {
             var rules = new[]
             {

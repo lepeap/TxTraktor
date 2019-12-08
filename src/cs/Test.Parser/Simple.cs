@@ -9,7 +9,7 @@ namespace TxtTractor.Test.Parser
     public class Simple
     {
         [Test]
-        public void TestOneRuleOneTerminal()
+        public void OneRuleOneTerminal()
         {
             var rules = new[]
             {
@@ -34,7 +34,7 @@ namespace TxtTractor.Test.Parser
         }
         
         [Test]
-        public void TestOneRuleTwoTerminal()
+        public void OneRuleTwoTerminal()
         {
             var rules = new[]
             {
@@ -62,7 +62,7 @@ namespace TxtTractor.Test.Parser
         }
         
         [Test]
-        public void TestOneRuleTwoTerminalInText()
+        public void OneRuleTwoTerminalInText()
         {
             var rules = new[]
             {
@@ -92,7 +92,7 @@ namespace TxtTractor.Test.Parser
         }
         
         [Test]
-        public void TestOneRuleOneRegTerminal()
+        public void OneRuleOneRegTerminal()
         {
             var rules = new[]
             {
@@ -117,7 +117,7 @@ namespace TxtTractor.Test.Parser
         }
         
         [Test]
-        public void TesTwoRulesWithNonTerminal1()
+        public void TwoRulesWithNonTerminal1()
         {
             var nonTermRule = new Rule("S1",
                 new []
@@ -153,7 +153,7 @@ namespace TxtTractor.Test.Parser
         }
                 
         [Test]
-        public void TesTwoRulesWithNonTerminal2()
+        public void TwoRulesWithNonTerminal2()
         {
             var nonTermRule = new Rule("BigCir",
                                         new []
@@ -192,7 +192,7 @@ namespace TxtTractor.Test.Parser
         }
         
         [Test]
-        public void TesTwoRulesWithOverlapNonTerminal()
+        public void TwoRulesWithOverlapNonTerminal()
         {
             var nonTermRule = new Rule("BigCir",
                 new []
@@ -246,5 +246,35 @@ namespace TxtTractor.Test.Parser
             Checker.Check(rules, tokens, finalStates);
         }
         
+        [Test]
+        public void EverythingWith2Terminals()
+        {
+            var rules = new[]
+            {
+                new Rule(
+                    "S",
+                    new[]
+                    {
+                        new Terminal(condition: new TextCondition("1")),
+                        new Terminal(condition: new EverythingCondition()),
+                        new Terminal(condition: new TextCondition("3"))
+                    },
+                    isStart: true
+                )
+            };
+            var tokens = new[]
+            {
+                new Token("1"),
+                new Token("2"),
+                new Token("3"),
+                new Token("4"),
+
+            };
+            var finalStates = new[]
+            {
+                new FinalState("1 2 3", "S", 0, 3), 
+            };
+            Checker.Check(rules, tokens, finalStates);
+        }
     }
 }

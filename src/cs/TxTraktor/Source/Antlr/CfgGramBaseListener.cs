@@ -407,6 +407,18 @@ public partial class CfgGramBaseListener : ICfgGramListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitRule_item_static_main_key_full_nonterm([NotNull] CfgGramParser.Rule_item_static_main_key_full_nontermContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="CfgGramParser.rule_item_everything"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRule_item_everything([NotNull] CfgGramParser.Rule_item_everythingContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CfgGramParser.rule_item_everything"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRule_item_everything([NotNull] CfgGramParser.Rule_item_everythingContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="CfgGramParser.rule_item_variable_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

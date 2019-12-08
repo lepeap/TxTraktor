@@ -89,13 +89,16 @@ rule_item_static_main_key:
         rule_item_static_main_key_short_nonterm |
         rule_item_static_main_key_full_nonterm |
         rule_item_variable_name |
-        rule_item_quote;
+        rule_item_quote |
+        rule_item_everything
+        ;
 rule_item_static_main_key_lemma: LEMMA_STRING_VALUE;
 rule_item_static_main_key_reg: REG_STRING_VALUE;
 rule_item_static_main_key_morph: MORPH_STRING_VALUE;
 rule_item_static_main_key_string: STRING_VALUE;
 rule_item_static_main_key_short_nonterm: STARTS_BIG;
 rule_item_static_main_key_full_nonterm: STARTS_BIG '.' STARTS_BIG;
+rule_item_everything: '&.';
 rule_item_variable_name: '$' ALL_SMALL;
 rule_item_quote: '&q';
 

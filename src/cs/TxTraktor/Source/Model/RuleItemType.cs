@@ -7,6 +7,7 @@ namespace TxTraktor.Source.Model
         Regex,
         Lemma,
         Morphology,
-        VariableName
+        VariableName,
+        Everything
     }
 }

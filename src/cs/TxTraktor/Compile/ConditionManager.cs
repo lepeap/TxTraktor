@@ -32,32 +32,36 @@ namespace TxTraktor.Compile
             IEnumerable<Source.Model.Condition> srcConditions = item.Conditions;
             ICondition mainCondition = null;
 
-            if (item.Type == RuleItemType.Regex)
-                mainCondition = new RegexCondition(item.Key);
-
-            if (item.Type == RuleItemType.Terminal)
-                mainCondition = new TextCondition(item.Key);
-
-            if (item.Type == RuleItemType.Lemma)
-                mainCondition = new LemmaCondition(item.Key);
-
-            if (item.Type == RuleItemType.Morphology)
+            switch (item.Type)
             {
-                // главный морфологический ключ объединяется
-                // с второстепенными морфологичекими условиями
+                case RuleItemType.Regex:
+                    mainCondition = new RegexCondition(item.Key);
+                    break;
+                case RuleItemType.Terminal:
+                    mainCondition = new TextCondition(item.Key);
+                    break;
+                case RuleItemType.Lemma:
+                    mainCondition = new LemmaCondition(item.Key);
+                    break;
+                case RuleItemType.Morphology:
+                    // главный морфологический ключ объединяется
+                    // с второстепенными морфологичекими условиями
+                    var morphKeys = item.Key.Split(',');
 
-                var morphKeys = item.Key.Split(',');
+                    if (item.Conditions != null)
+                    {
+                        morphKeys = morphKeys.Concat(item.Conditions
+                                .Where(c => c.Key == "морф")
+                                .SelectMany(c => c.Values))
+                            .ToArray();
+                    }
 
-                if (item.Conditions != null)
-                {
-                    morphKeys = morphKeys.Concat(item.Conditions
-                            .Where(c => c.Key == "морф")
-                            .SelectMany(c => c.Values))
-                        .ToArray();
-                }
-
-                mainCondition = new MorphologyCondition(morphKeys);
-                srcConditions = srcConditions?.Where(x => x.Key != "морф");
+                    mainCondition = new MorphologyCondition(morphKeys);
+                    srcConditions = srcConditions?.Where(x => x.Key != "морф");
+                    break;
+                case RuleItemType.Everything:
+                    mainCondition = new EverythingCondition();
+                    break;
             }
 
             if (item.HasConditions)
