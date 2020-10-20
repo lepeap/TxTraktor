@@ -22,7 +22,10 @@ namespace TxtTractor.Test.Extract
             if (settings==null)
                 settings = new ExtractorSettings();
 
-            var extractor = ExtractorFactory.Create(rules, settings, extensions, morph);
+            var extractor = ExtractorFactory.Create(rules, 
+                                                    settings, 
+                                                    extensions: extensions, 
+                                                    morph: morph);
             var result = extractor.Parse(text, rulesToExtract);
             _check(etalon.ToArray(), result.ToArray());
         }
@@ -110,7 +113,6 @@ namespace TxtTractor.Test.Extract
                 {
                     _checkValue(etList[i], rezList[i], $"{key}_{i}");
                 }
-
             }
             else
                 Assert.AreEqual(etItem.Value,

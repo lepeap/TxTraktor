@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using TxTraktor.Morphology;
 using TxTraktor.Parse;
 using TxTraktor.Parse.Forest;
@@ -15,13 +16,13 @@ namespace TxTraktor.Extract
         private readonly IMorphAnalizer _morphAnalizer;
         private readonly IChartParser _parser;
         private readonly ExtractorSettings _settings;
-        private readonly ILogger _logger;
+        private readonly ILogger<IExtractor> _logger;
 
         public Extractor(ITokenizer tokenizer,
             IMorphAnalizer morphAnalizer,
             IChartParser parser,
             ExtractorSettings settings,
-            ILogger logger)
+            ILogger<IExtractor> logger)
         {
             _tokenizer = tokenizer;
             _morphAnalizer = morphAnalizer;
@@ -32,7 +33,7 @@ namespace TxTraktor.Extract
 
         public IEnumerable<ExtractionDic> Parse(string text, params string[] rulesToExtract)
         {
-            _logger.Debug("Начало извлечения из текста: {Text}", text);
+            _logger?.LogDebug("Начало извлечения из текста: {Text}", text);
             var tokens = _tokenizer.Tokenize(text).ToArray();
             _morphAnalizer?.SetMorphInfo(tokens);
             var chart = _parser.Parse(tokens, rulesToExtract);

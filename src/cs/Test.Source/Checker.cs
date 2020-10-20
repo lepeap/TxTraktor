@@ -12,7 +12,7 @@ namespace TxtTractor.Test.Source
     [Parallelizable(ParallelScope.Self)]
     internal static class Checker
     {
-        static IGrammarParser _parser = new GrammarParser(new MoqLogger());
+        static IGrammarParser _parser = new GrammarParser(null);
 
         internal static void CheckGrammar(string text, Grammar etalonGrammar)
         {

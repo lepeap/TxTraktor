@@ -1,5 +1,6 @@
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using Microsoft.Extensions.Logging;
 using TxTraktor.Source.Listener;
 using TxTraktor.Source.Model;
 
@@ -7,8 +8,8 @@ namespace TxTraktor.Source
 {
     internal class GrammarParser : IGrammarParser
     {
-        private ILogger _logger;
-        public GrammarParser(ILogger logger)
+        private ILogger<IGrammarParser> _logger;
+        public GrammarParser(ILogger<IGrammarParser> logger)
         {
             _logger = logger;
         }
@@ -28,7 +29,6 @@ namespace TxTraktor.Source
             var listener = new Main();
             walker.Walk(listener, cont);
 
-
             if (errorListener.HasErrors)
             {
                 return new Grammar()
@@ -40,10 +40,5 @@ namespace TxTraktor.Source
 
             return listener.Grammar;
         }
-        
-
-
-
-
     }
 }

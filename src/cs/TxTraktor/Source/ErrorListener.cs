@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Antlr4.Runtime;
+using Microsoft.Extensions.Logging;
 
 namespace TxTraktor.Source
 {
@@ -31,7 +32,7 @@ namespace TxTraktor.Source
             var error =
                 $"Syntax error at grammar \"{_grammarKey}\". Message: \"{msg}\" at line {line} position {charPositionInLine}";
             Errors.Add(error);
-            _logger.Error(error);
+            _logger?.LogError(error);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace TxtTractor.Test.Parser
         private static Chart _createChart(IEnumerable<Rule> rules, IEnumerable<Token> tokens)
         {
             var sRls = StartTerminal.Create(rules.Where(x => x.IsStart)).ToArray();
-            var parser = new EarleyParser(sRls, new MoqLogger());
+            var parser = new EarleyParser(sRls, null);
             return parser.Parse(tokens);
         }
         public static void Check(IEnumerable<Rule> rules, IEnumerable<Token> tokens, FinalState[] etalonItems)

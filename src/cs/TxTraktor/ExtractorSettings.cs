@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace TxTraktor
 {
@@ -11,6 +12,5 @@ namespace TxTraktor
         public string[] RulesToExtract { get; set; }
         public bool SelectLongest { get; set; } = true;
         public Dictionary<string, string> Variables { get; set; }
-        public ILogger Logger { get; set; }
     }
 }
