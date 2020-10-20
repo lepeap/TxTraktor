@@ -1,12 +1,8 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using NSubstitute;
 using NUnit.Framework;
-using TxTraktor;
 using TxTraktor.Extract;
-using TxTraktor.Morphology;
 
-namespace Test.Extract
+namespace TxtTractor.Test.Extract
 {
     [Parallelizable(ParallelScope.All)]
     public class ValidationSogl

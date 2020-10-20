@@ -4,7 +4,7 @@ using NSubstitute;
 using TxTraktor;
 using TxTraktor.Morphology;
 
-namespace Test.Extract
+namespace TxtTractor.Test.Extract
 {
     public class MorphMoqBuilder
     {

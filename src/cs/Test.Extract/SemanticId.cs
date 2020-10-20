@@ -4,7 +4,7 @@ using NUnit.Framework;
 using TxTraktor.Extension;
 using TxTraktor.Extract;
 
-namespace Test.Extract
+namespace TxtTractor.Test.Extract
 {
     [Parallelizable(ParallelScope.All)]
     public class SemanticId

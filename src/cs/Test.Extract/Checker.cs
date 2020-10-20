@@ -7,7 +7,7 @@ using TxTraktor.Extract;
 using TxTraktor.Morphology;
 using ValueType = TxTraktor.Extract.ValueType;
 
-namespace Test.Extract
+namespace TxtTractor.Test.Extract
 {
     public static class Checker
     {

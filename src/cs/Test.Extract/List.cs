@@ -3,7 +3,7 @@ using NUnit.Framework;
 using TxTraktor;
 using TxTraktor.Extract;
 
-namespace Test.Extract
+namespace TxtTractor.Test.Extract
 {
     [Parallelizable(ParallelScope.All)]
     public class List

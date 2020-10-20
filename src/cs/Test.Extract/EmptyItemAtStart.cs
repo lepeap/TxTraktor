@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using TxTraktor.Extract;
 
-namespace Test.Extract
+namespace TxtTractor.Test.Extract
 {
     public class EmptyItemAtStart
     {
