@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using TxTraktor;
 using TxTraktor.Extension;
 using TxTraktor.Extract;
+using TxTraktor.Morphology;
 using ValueType = TxTraktor.Extract.ValueType;
 
 namespace Test.Extract
@@ -16,12 +16,13 @@ namespace Test.Extract
                                  IEnumerable<ExtractionDic> etalon, 
                                  ExtractorSettings settings = null,
                                  IEnumerable<IExtension> extensions = null,
+                                 IMorphAnalizer morph = null,
                                  params string[] rulesToExtract)
         {
             if (settings==null)
                 settings = new ExtractorSettings();
 
-            var extractor = ExtractorFactory.Create(rules, settings, extensions);
+            var extractor = ExtractorFactory.Create(rules, settings, extensions, morph);
             var result = extractor.Parse(text, rulesToExtract);
             _check(etalon.ToArray(), result.ToArray());
         }
@@ -44,7 +45,6 @@ namespace Test.Extract
 
         private  static void _checkDictionary(ExtractionDic etalonDic, ExtractionDic resultDic)
         {
-            
             Assert.AreEqual(etalonDic.Name,
                 resultDic.Name,
                 $"Wrong name");
@@ -59,7 +59,7 @@ namespace Test.Extract
             
             Assert.AreEqual(etalonDic.EndPosition,
                 resultDic.EndPosition,
-                $"Wrong end position");
+                $"Wrong length");
             
             Assert.AreEqual(etalonDic.Count,
                 resultDic.Count,
@@ -84,7 +84,6 @@ namespace Test.Extract
                     $"Wrong item semanticId with key '{etKp.Key}'");
 
                 _checkValue(etItem, resItem, etKp.Key);
-
             }
         }
 

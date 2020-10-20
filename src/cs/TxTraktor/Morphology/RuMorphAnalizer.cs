@@ -7,7 +7,6 @@ namespace TxTraktor.Morphology
     {
         private readonly MorphAnalyzer _morph = new MorphAnalyzer(withLemmatization: true);
 
-
         public string Lemmatize(string word)
         {
             return _morph.Parse(new[] {word}).First().BestTag.Lemma;

@@ -17,39 +17,31 @@ namespace TxTraktor
     {
         private ExtractorSettings _settings;
         private IEnumerable<IExtension> _extensions;
-        public ExtractorFactory(ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
+        private IMorphAnalizer _morph;
+        public ExtractorFactory(ExtractorSettings settings, 
+                                IEnumerable<IExtension> extensions = null,
+                                IMorphAnalizer morph = null)
         {
             _settings = settings;
             _extensions = extensions;
+            _morph = morph ?? new RuMorphAnalizer();
         }
         
-        public static IExtractor Create(string rules, ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
+        public static IExtractor Create(string rules, 
+                                        ExtractorSettings settings, 
+                                        IEnumerable<IExtension> extensions = null,
+                                        IMorphAnalizer morph = null)
         {
             var grammar = _createMainGrammar(rules, settings.Language);
             settings.MainGrammar = grammar;
-            return Create(settings, extensions);
-        }
-        
-        public static IExtractor Create(string rules,
-            Language language = Language.Ru,
-            bool selectLongest = true,
-            Dictionary<string, string> variables = null,
-            IEnumerable<IExtension> extensions = null)
-        {
-            var grammar = _createMainGrammar(rules, language);
-            var settings = new ExtractorSettings()
-            {
-                MainGrammar = grammar,
-                Language = language,
-                SelectLongest = selectLongest,
-                Variables = variables,
-            };
-            return Create(settings, extensions);
+            return Create(settings, extensions, morph);
         }
 
-        public static IExtractor Create(ExtractorSettings settings, IEnumerable<IExtension> extensions = null)
+        public static IExtractor Create(ExtractorSettings settings,
+                                        IEnumerable<IExtension> extensions = null,
+                                        IMorphAnalizer morph = null)
         {
-            return new ExtractorFactory(settings, extensions).CreateExtractor();
+            return new ExtractorFactory(settings, extensions, morph).CreateExtractor();
         }
 
         private static string _createMainGrammar(string rules, Language language)
@@ -72,13 +64,8 @@ namespace TxTraktor
             var tokenizer = Tokenizer;
             var logger = _settings.Logger ?? new MoqLogger();
             var gramRep = GrammarRepository;
-            
-            IMorphAnalizer morph = null;
-            
-            if (_settings.Language == Language.Ru)
-                morph = new RuMorphAnalizer();
-            
-            var gramCompiler = new GrammarCompiler(tokenizer, morph, _extensions);
+
+            var gramCompiler = new GrammarCompiler(tokenizer, _morph, _extensions);
             var startTerminalsCreator = new StartTerminalsCreator(_settings);
 
             var srcGrams = new List<(string key, string src)>();
@@ -92,8 +79,7 @@ namespace TxTraktor
             var rules = gramCompiler.Compile(grams, _settings.Variables);
             var startRules = startTerminalsCreator.Create(rules);
             var parser = new EarleyParser(startRules, logger);
-            
-            var extractor = new Extractor(tokenizer, morph, parser, _settings, logger);
+            var extractor = new Extractor(tokenizer, _morph, parser, _settings, logger);
             return extractor;
         }
 

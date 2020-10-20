@@ -103,6 +103,7 @@ namespace Test.Extract
                 },
                 null,
                 null,
+                null,
                 "Main.S"
             );
         }

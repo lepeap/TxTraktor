@@ -1,6 +1,6 @@
 namespace TxTraktor.Morphology
 {
-    internal interface IMorphAnalizer
+    public interface IMorphAnalizer
     {
         string Lemmatize(string word);
         void SetMorphInfo(Token[] tokens);

@@ -1,5 +1,10 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using NSubstitute;
 using NUnit.Framework;
+using TxTraktor;
 using TxTraktor.Extract;
+using TxTraktor.Morphology;
 
 namespace Test.Extract
 {
@@ -9,6 +14,16 @@ namespace Test.Extract
         [Test]
         public void SolgChisloTrue()
         {
+            var mb = new MorphMoqBuilder();
+            mb.AddMorphData("тест", new Dictionary<string, string>()
+            {
+                {"число", "ед"}
+            });
+            mb.AddMorphData("большой", new Dictionary<string, string>()
+            {
+                {"число", "ед"}
+            });
+
             Checker.Check(
                 "тест большой.",
                 "S1 -> \"тест\";\n"+
@@ -19,19 +34,31 @@ namespace Test.Extract
                     {
                         {"Test", new ExtractionValue( "1234", ValueType.String)}
                     }
-                }
+                },
+                morph: mb.Result
             );
         }
         
         [Test]
         public void SolgChisloFalse()
         {
+            var mb = new MorphMoqBuilder();
+            mb.AddMorphData("дом", new Dictionary<string, string>()
+            {
+                {"число", "ед"}
+            });
+            mb.AddMorphData("большие", new Dictionary<string, string>()
+            {
+                {"число", "мн"}
+            }, "большой");
+            
             Checker.Check(
                 "дом большие.",
                 "S1 -> \"дом\";\n"+
                 "S2 -> l\"большой\";\n"+
                 "S[Test=$name] -> S1<согл=1,число> S2<согл=1,число> #set name=\"1234\";",
-                new ExtractionDic[0]
+                new ExtractionDic[0],
+                morph: mb.Result
             );
         }
     }

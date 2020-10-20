@@ -20,6 +20,7 @@ namespace Test.Extract
                 },
                 null,
                 null,
+                null,
                 "Main.S"
             );
         }
@@ -37,6 +38,7 @@ namespace Test.Extract
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
+                null,
                 null,
                 null,
                 "Main.S"
@@ -58,6 +60,7 @@ namespace Test.Extract
                 },
                 null,
                 null,
+                null,
                 "Main.S"
             );
         }
@@ -75,6 +78,7 @@ namespace Test.Extract
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
+                null,
                 null,
                 null,
                 "Main.S"
@@ -95,6 +99,7 @@ namespace Test.Extract
                         {"Test", new ExtractionValue(true, ValueType.Bool)}
                     }
                 },
+                null,
                 null,
                 null,
                 "Main.S"

@@ -37,7 +37,11 @@ namespace TxTraktor.Extract
             _morphAnalizer?.SetMorphInfo(tokens);
             var chart = _parser.Parse(tokens, rulesToExtract);
             var complShart = chart.GetOnyCompletedChart();
-            var result = _processChart(complShart, text);
+            var result = _processChart(complShart, text)
+                                .OrderBy(x => x.StartPosition)
+                                .ThenBy(x => x.Count)
+                                .Where(x => rulesToExtract.Length == 0 || rulesToExtract.Contains(x.Name));
+                                
             return result;
         }
 

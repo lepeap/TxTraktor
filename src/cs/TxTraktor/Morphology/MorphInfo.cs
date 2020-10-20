@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace TxTraktor.Morphology
 {
     public class MorphInfo
     {
-        private ReadOnlyDictionary<string, string> _grams;
-        public MorphInfo(string lemma, ReadOnlyDictionary<string, string> grams)
+        private IReadOnlyDictionary<string, string> _grams;
+        public MorphInfo(string lemma, IReadOnlyDictionary<string, string> grams)
         {
             Lemma = lemma;
             _grams = grams;
